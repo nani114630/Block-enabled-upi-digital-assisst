@@ -3,6 +3,7 @@
     "target": "ES2022",
     "module": "CommonJS",
     "moduleResolution": "Node",
+    "ignoreDeprecations": "6.0",
     "lib": ["ES2022"],
     "outDir": "./dist",
     "rootDir": "./src",
@@ -21,19 +22,7 @@
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "strictPropertyInitialization": true,
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"],
-      "@config/*": ["src/config/*"],
-      "@controllers/*": ["src/controllers/*"],
-      "@middleware/*": ["src/middleware/*"],
-      "@models/*": ["src/models/*"],
-      "@services/*": ["src/services/*"],
-      "@routes/*": ["src/routes/*"],
-      "@utils/*": ["src/utils/*"],
-      "@types/*": ["src/types/*"]
-    }
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
