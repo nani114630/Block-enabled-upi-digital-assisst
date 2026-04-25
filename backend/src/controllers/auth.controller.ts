@@ -20,7 +20,7 @@ const loginSchema = z.object({
 export const authController = {
   async register(req: Request, res: Response, next: NextFunction) {
     try {
-      const input = registerSchema.parse(req.body);
+      const input = registerSchema.parse(req.body) as { email: string; password: string; name: string; walletAddress?: string; role?: string };
       const result = await authService.register(input);
 
       res.status(201).json({
@@ -34,7 +34,7 @@ export const authController = {
 
   async login(req: Request, res: Response, next: NextFunction) {
     try {
-      const input = loginSchema.parse(req.body);
+      const input = loginSchema.parse(req.body) as { email: string; password: string };
       const result = await authService.login(input);
 
       res.status(200).json({

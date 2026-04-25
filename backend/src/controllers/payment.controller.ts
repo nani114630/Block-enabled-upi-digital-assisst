@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
-import { paymentService, nftService, orderService } from '../services/index.js';
+import { paymentService, nftService, orderService, CreateOrderInput, VerifyPaymentInput } from '../services/index.js';
 import { config } from '../config/index.js';
 import { logger } from '../utils/logger.js';
 
@@ -19,7 +19,7 @@ const createOrderSchema = z.object({
 export const paymentController = {
   async createOrder(req: Request, res: Response, next: NextFunction) {
     try {
-      const data = createOrderSchema.parse(req.body);
+      const data = createOrderSchema.parse(req.body) as CreateOrderInput;
       const order = await paymentService.createOrder(data);
 
       res.status(201).json({
@@ -33,7 +33,7 @@ export const paymentController = {
 
   async verifyPayment(req: Request, res: Response, next: NextFunction) {
     try {
-      const data = verifyPaymentSchema.parse(req.body);
+      const data = verifyPaymentSchema.parse(req.body) as VerifyPaymentInput;
       const verified = await paymentService.verifyPaymentSignature(data);
 
       res.status(200).json({

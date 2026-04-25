@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
-import { nftService } from '../services/index.js';
+import { nftService, MintNFTInput } from '../services/index.js';
 import { AuthRequest } from '../middleware/auth.js';
 
 const mintSchema = z.object({
@@ -22,7 +22,7 @@ const listNFTsSchema = z.object({
 export const nftController = {
   async mint(req: AuthRequest, res: Response, next: NextFunction) {
     try {
-      const data = mintSchema.parse(req.body);
+      const data = mintSchema.parse(req.body) as MintNFTInput;
       const nft = await nftService.mint(data);
 
       res.status(201).json({

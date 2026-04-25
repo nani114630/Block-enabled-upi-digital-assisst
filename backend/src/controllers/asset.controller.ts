@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
-import { assetService } from '../services/index.js';
+import { assetService, CreateAssetInput } from '../services/index.js';
 import { ipfsService } from '../services/index.js';
 import { AuthRequest } from '../middleware/auth.js';
 import { requireAdmin } from '../middleware/auth.js';
@@ -116,7 +116,7 @@ export const assetController = {
 
   async create(req: AuthRequest, res: Response, next: NextFunction) {
     try {
-      const data = createAssetSchema.parse(req.body);
+      const data = createAssetSchema.parse(req.body) as CreateAssetInput;
       const asset = await assetService.create(data, req.user!.id);
 
       res.status(201).json({
